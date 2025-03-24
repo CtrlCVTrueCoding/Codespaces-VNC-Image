@@ -1,0 +1,10 @@
+name: Report remaining open issues
+on: 
+  schedule: 
+    # every 2h during working time
+    - cron: '20 8 * * *'
+jobs:
+  keep_alive: 
+    runs-on: ubuntu-latest
+    # fill this
+  
