@@ -8,10 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       # fill this
-      - run : gh codespace ssh --codespace "Shikan" 
   run_command: 
     runs-on: ubuntu-latest
     steps:
+      - run : gh codespace ssh --codespace ‘Shikan‘ ./home/codespace/Desktop/start_all.sh
+        env : 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # run commands using "gh cs ssh"
       
     
