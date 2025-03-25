@@ -1,8 +1,8 @@
 name: start and run command
-on: 
-  schedule: 
+on: push
+  #schedule: 
     # Daily at 8:20 UTC
-    - cron: '20 8 * * *'
+    #- cron: '20 8 * * *'
 jobs: 
   start_cs: 
     runs-on: ubuntu-latest
