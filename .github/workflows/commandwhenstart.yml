@@ -1,4 +1,4 @@
-name: remote ssh command
+name: start and run command
 on: 
   schedule: 
     # Daily at 8:20 UTC
@@ -7,13 +7,21 @@ jobs:
   start_cs: 
     runs-on: ubuntu-latest
     steps: 
+      - name: Codespace Scheduler
+        uses: ud803/github-codespace-scheduler@v1.0.7
+        env:
+          GITHUB_AUTH: ${{ secrets.secrets_TOKEN }}
+        with:
+          CODESPACE_NAME: "Shikan"
+          WAIT_SECONDS: 30
       # fill this
   run_command: 
     runs-on: ubuntu-latest
     steps:
-      - run : gh codespace ssh --codespace ‘Shikan‘ ./home/codespace/Desktop/start_all.sh
+      - run : gh codespace ssh --codespace "Shikan" whoami 
+      # ./home/codespace/Desktop/start_all.sh
         env : 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # run commands using "gh cs ssh"
+          GH_TOKEN: ${{ secrets.secrets_TOKEN }}
+
       
     
