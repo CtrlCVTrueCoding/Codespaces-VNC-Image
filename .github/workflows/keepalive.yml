@@ -1,8 +1,8 @@
-name: Report remaining open issues
-on: 
-  schedule: 
+name: Keep cs alive
+on: push 
+  #schedule: 
     # every 2h during working time
-    - cron: '20 8 * * *'
+    #- cron: '20 8 * * *'
 jobs:
   keep_alive: 
     runs-on: ubuntu-latest
