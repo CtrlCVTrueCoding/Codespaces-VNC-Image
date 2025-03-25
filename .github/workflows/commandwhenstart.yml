@@ -10,7 +10,7 @@ jobs:
       - name: Codespace Scheduler
         uses: ud803/github-codespace-scheduler@v1.0.6
         env:
-          GITHUB_AUTH: ${{ secrets.secrets_TOKEN }}
+          GITHUB_AUTH: ${{ secrets.GH_TOKEN }}
         with:
           CODESPACE_NAME: "Shikan"
           WAIT_SECONDS: 30
@@ -21,7 +21,7 @@ jobs:
       - run : gh codespace ssh --codespace "Shikan" whoami 
       # ./home/codespace/Desktop/start_all.sh
         env : 
-          GH_TOKEN: ${{ secrets.secrets_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       
     
