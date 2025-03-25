@@ -6,5 +6,7 @@ on:
 jobs:
   keep_alive: 
     runs-on: ubuntu-latest
-    # fill this
-  
+    steps:
+        - run : gh codespace ssh --codespace "Shikan" whoami 
+          env : 
+            GH_TOKEN: ${{ secrets.secrets_TOKEN }}
