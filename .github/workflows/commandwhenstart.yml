@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Codespace Scheduler
-        uses: ud803/github-codespace-scheduler@v1.0.7
+        uses: ud803/github-codespace-scheduler@v1.0.6
         env:
           GITHUB_AUTH: ${{ secrets.secrets_TOKEN }}
-        #with:
+        with:
           CODESPACE_NAME: "Shikan"
           WAIT_SECONDS: 30
       # fill this
