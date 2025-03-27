@@ -13,13 +13,13 @@ jobs:
         env:
           GITHUB_AUTH: ${{ secrets.GH_TOKEN }}
         with:
-          CODESPACE_NAME: "Shikan"
+          CODESPACE_NAME: "cuddly-umbrella-9vgg4vwv77qcxv6j"
           WAIT_SECONDS: 30
       # fill this
   run_command: 
     runs-on: ubuntu-latest
     steps:
-      - run : gh codespace ssh --codespace "Shikan" whoami 
+      - run : gh codespace ssh --codespace "cuddly-umbrella-9vgg4vwv77qcxv6j" whoami 
       # ./home/codespace/Desktop/start_all.sh
         env : 
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
