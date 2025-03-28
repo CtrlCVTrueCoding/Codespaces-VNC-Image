@@ -7,6 +7,6 @@ jobs:
   keep_alive: 
     runs-on: ubuntu-latest
     steps:
-        - run : gh codespace ssh --codespace "Shikan" whoami 
+        - run : gh codespace ssh --codespace "cuddly-umbrella-9vgg4vwv77qcxv6j" whoami 
           env : 
-            GH_TOKEN: ${{ secrets.secrets_TOKEN }}
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
