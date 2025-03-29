@@ -14,17 +14,18 @@ jobs:
         run: |
           response=$(curl -s -G 'https://api.live.bilibili.com/room/v1/Room/get_info' \
             --data-urlencode 'room_id=804192')
-          echo "响应: $response"
-          
+          echo "response: $response"
           live_status=$(echo "$response" | jq -r '.data.live_status')
-          echo "提取到的 live_status: $live_status"
-          
-          # 保存 live_status 到环境变量，供后续步骤使用
+          echo "live_status get: $live_status"
           echo "LIVE_STATUS=$live_status" >> $GITHUB_ENV
-          
-          # 同时将 live_status 作为步骤输出
           echo "::set-output name=live_status::$live_status"
-          
-      - name: 使用 live_status 变量
-        run: |
           echo "当前 live_status 变量的值为: $LIVE_STATUS"
+          
+      - name: 判断并触发后续 workflow
+        if: ${{ env.LIVE_STATUS == '1' }}  # 根据你的条件进行调整
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/dispatches \
+            -d '{"event_type": "live_status_active", "client_payload": {"live_status": "'"${LIVE_STATUS}"'"}}'
