@@ -1,27 +1,28 @@
-name: API Request Workflow
+name: Bilibili Live Status Check
 
 on:
   schedule:
     - cron: '* * * * *'  # 每分钟运行一次（注意：实际最小间隔可能为5分钟）
-  workflow_dispatch: 
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
-  call_api:
+  fetch_live_status:
     runs-on: ubuntu-latest
     steps:
-      - name: api request
-        id: api_call
+      - name: api-get
+        id: live_status_api
         run: |
           response=$(curl -s -G 'https://api.live.bilibili.com/room/v1/Room/get_info' \
-            --data-urlencode 'room_id=1')
+            --data-urlencode 'room_id=804192')
+          echo "响应: $response"
           
-          # 使用 jq 解析 JSON 数据并提取 message 键的值
-          live_status=$(echo "$response" | jq -r '.live_status')
+          live_status=$(echo "$response" | jq -r '.data.live_status')
+          echo "提取到的 live_status: $live_status"
           
-          # 将 live_status 值保存为环境变量供后续步骤使用
+          # 保存 live_status 到环境变量，供后续步骤使用
           echo "LIVE_STATUS=$live_status" >> $GITHUB_ENV
           
-          # 如果需要将该变量作为步骤输出，可以使用如下方式：
+          # 同时将 live_status 作为步骤输出
           echo "::set-output name=live_status::$live_status"
           
       - name: 使用 live_status 变量
