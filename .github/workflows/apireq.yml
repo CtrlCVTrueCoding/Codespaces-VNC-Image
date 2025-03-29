@@ -2,7 +2,7 @@ name: Bilibili Live Status Check
 
 on:
   schedule:
-    - cron: '* * * * *'  # 每分钟运行一次（注意：实际最小间隔可能为5分钟）
+    #- cron: '* * * * *'  # 每分钟运行一次（注意：实际最小间隔可能为5分钟）
   workflow_dispatch:  # 允许手动触发
 
 jobs:
