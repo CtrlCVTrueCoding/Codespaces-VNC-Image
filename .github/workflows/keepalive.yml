@@ -1,5 +1,6 @@
 name: Keep cs alive
-on: push 
+on: 
+  workflow_dispatch:
   #schedule: 
     # every 2h during working time
     #- cron: '20 8 * * *'
