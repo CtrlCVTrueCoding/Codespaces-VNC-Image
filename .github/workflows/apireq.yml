@@ -3,30 +3,27 @@ name: API Request Workflow
 on:
   schedule:
     - cron: '* * * * *'  # 每分钟运行一次（注意：实际最小间隔可能为5分钟）
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch: 
 
 jobs:
   call_api:
     runs-on: ubuntu-latest
     steps:
-      - name: 发起 API 请求
+      - name: api request
         id: api_call
         run: |
-          # 发起请求，此处调用的是狗狗随机图片API，返回结果示例：
-          # {"message": "https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg", "status": "success"}
-          response=$(curl -s https://dog.ceo/api/breeds/image/random)
+          response=$(curl -G 'https://api.live.bilibili.com/room/v1/Room/get_info' \ --data-urlencode 'room_id=1')
           echo "响应：$response"
           
           # 使用 jq 解析 JSON 数据并提取 message 键的值
-          message=$(echo "$response" | jq -r '.message')
-          echo "提取到的 message: $message"
+          live_status=$(echo "$response" | jq -r '.live_status')
           
-          # 将 message 值保存为环境变量供后续步骤使用
-          echo "MESSAGE=$message" >> $GITHUB_ENV
+          # 将 live_status 值保存为环境变量供后续步骤使用
+          echo "LIVE_STATUS=$live_status" >> $GITHUB_ENV
           
           # 如果需要将该变量作为步骤输出，可以使用如下方式：
-          # echo "::set-output name=message::$message"
+          echo "::set-output name=live_status::$live_status"
           
-      #- name: 使用 message 变量
-        #run: |
-          #echo "当前 message 变量的值为: $MESSAGE"
+      - name: 使用 live_status 变量
+        run: |
+          echo "当前 live_status 变量的值为: $LIVE_STATUS"
