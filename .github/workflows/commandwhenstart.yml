@@ -1,9 +1,9 @@
 name: start and run command
-on: 
+on:
+  repository_dispatch:
+    types: [live_status_active]
   workflow_dispatch:
-  #schedule: 
-    # Daily at 8:20 UTC
-    #- cron: '20 8 * * *'
+
 jobs: 
   start_cs: 
     runs-on: ubuntu-latest
