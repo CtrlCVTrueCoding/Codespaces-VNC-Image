@@ -12,8 +12,8 @@ jobs:
       - name: api request
         id: api_call
         run: |
-          response=$(curl -G 'https://api.live.bilibili.com/room/v1/Room/get_info' \ --data-urlencode 'room_id=804192')
-          echo "响应：$response"
+          response=$(curl -s -G 'https://api.live.bilibili.com/room/v1/Room/get_info' \
+            --data-urlencode 'room_id=1')
           
           # 使用 jq 解析 JSON 数据并提取 message 键的值
           live_status=$(echo "$response" | jq -r '.live_status')
