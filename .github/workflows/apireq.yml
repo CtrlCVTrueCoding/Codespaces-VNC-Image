@@ -1,9 +1,9 @@
 name: Bilibili Live Status Check
 
 on:
-  schedule:
-    #- cron: '* * * * *'  # 每分钟运行一次（注意：实际最小间隔可能为5分钟）
-  workflow_dispatch:  # 允许手动触发
+  #schedule:
+    #- cron: '* * * * *'  
+  workflow_dispatch: 
 
 jobs:
   fetch_live_status:
@@ -13,7 +13,7 @@ jobs:
         id: live_status_api
         run: |
           response=$(curl -s -G 'https://api.live.bilibili.com/room/v1/Room/get_info' \
-            --data-urlencode 'room_id=804192')
+            --data-urlencode 'room_id=13')  #'room_id=804192')
           echo "response: $response"
           live_status=$(echo "$response" | jq -r '.data.live_status')
           echo "live_status get: $live_status"
@@ -21,8 +21,8 @@ jobs:
           echo "::set-output name=live_status::$live_status"
           echo "当前 live_status 变量的值为: $LIVE_STATUS"
           
-      - name: 判断并触发后续 workflow
-        if: ${{ env.LIVE_STATUS == '1' }}  # 根据你的条件进行调整
+      - name: trigger for next workflow
+        if: ${{ env.LIVE_STATUS == '1' }} 
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
